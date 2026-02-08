@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($stmt->execute([$username, $email, $hashedPassword])) {
                         $_SESSION['user_id'] = $pdo->lastInsertId();
                         $_SESSION['username'] = $username;
-                        header('Location: user.php');
+                        header('Location: userAccount.php');
                         exit;
                     } else {
                         $error = "Erreur lors de la création du compte";
