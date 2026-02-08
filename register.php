@@ -1,5 +1,4 @@
 <?php
-
 require_once 'repository/connection.php';
 
 $error = '';
@@ -16,25 +15,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial";
     }
     else {
-        $requete = $pdo->prepare("SELECT id FROM users WHERE username = ?");
-        $requete->execute([$username]);
-        if ($requete->fetch()) {
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        if ($stmt->fetch()) {
             $error = "Ce nom d'utilisateur existe déjà";
-        } else {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $requete = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-            
-            if ($requete->execute([$username, $email, $hashedPassword])) {
-                $_SESSION['user_id'] = $pdo->lastInsertId();
-                $_SESSION['username'] = $username;
-                header('Location: edit.phtml');
-                exit;
-            } else {
-                $error = "Erreur lors de la création du compte";
+        } 
+        else {
+            $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            if ($stmt->fetch()) {
+                $error = "Cet email est déjà utilisé";
+            } 
+            else {
+                try {
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+                    
+                    if ($stmt->execute([$username, $email, $hashedPassword])) {
+                        $_SESSION['user_id'] = $pdo->lastInsertId();
+                        $_SESSION['username'] = $username;
+                        header('Location: user.php');
+                        exit;
+                    } else {
+                        $error = "Erreur lors de la création du compte";
+                    }
+                } catch (PDOException $e) {
+                    $error = "Erreur lors de la création du compte : " . $e->getMessage();
+                }
             }
         }
     }
 }
+
 $layoutTitle = '3WA Tasks - Register';
 $template = 'register.phtml';
 include 'layout.phtml';
