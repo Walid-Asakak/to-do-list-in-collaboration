@@ -13,7 +13,7 @@ function insertUser(array $user, string $passwordHached): int {
         
         $request -> bindParam(':username', $user['username'], PDO::PARAM_STR);
         $request -> bindParam(':email', $user['email'], PDO::PARAM_STR);
-        $request -> bindParam(':password', $user['$passwordHached'], PDO::PARAM_STR);
+        $request -> bindParam(':password', $passwordHached, PDO::PARAM_STR);
         
         $request -> execute();
         
