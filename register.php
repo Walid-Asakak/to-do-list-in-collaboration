@@ -1,56 +1,53 @@
 <?php
-session_start();
-
-include 'repository/userRepository.php';
+require_once 'repository/connection.php';
 
 $error = '';
 
-if (!empty($_POST)) {
-
-    $db = connectToDataBase();
-
-    $username = $_POST['username'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
-
-    // Regex to validate the email and password
-    $regexEmail = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-    $regexPassword = '/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{12,}$/';
-
-    if (!preg_match($regexEmail, $email)) {
-        $error = "Your email address is invalid.";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    
+    if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $email)) {
+        $error = "Format d'email invalide";
     }
-    elseif (!preg_match($regexPassword, $password)) {
-        $error = "Your password must contain at least 12 characters, an uppercase letter, a number, and a special character.";
+    elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+        $error = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial";
     }
-    elseif (getUserbyEmail($email)) {
-        $error = "This email is already used.";
-    } 
     else {
-        $passwordHached = password_hash($password, PASSWORD_DEFAULT);
-
-        $user = [
-            'username' => $username,
-            'email' => $email
-        ];
-
-        $userId = insertUser($user, $passwordHached);
-
-        if ($userId) {
-            $_SESSION['user_id'] = $userId;
-            $_SESSION['username'] = $username;
-
-            // Redirect to login page
-            header('Location: userAccount.php');
-            exit();
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        if ($stmt->fetch()) {
+            $error = "Ce nom d'utilisateur existe déjà";
         } 
         else {
-            $error = 'An error occurred while creating your account. Please try again.';
+            $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            if ($stmt->fetch()) {
+                $error = "Cet email est déjà utilisé";
+            } 
+            else {
+                try {
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+                    
+                    if ($stmt->execute([$username, $email, $hashedPassword])) {
+                        $_SESSION['user_id'] = $pdo->lastInsertId();
+                        $_SESSION['username'] = $username;
+                        header('Location: user.php');
+                        exit;
+                    } else {
+                        $error = "Erreur lors de la création du compte";
+                    }
+                } catch (PDOException $e) {
+                    $error = "Erreur lors de la création du compte : " . $e->getMessage();
+                }
+            }
         }
     }
 }
 
-// Integration of the layout and template:
 $layoutTitle = '3WA Tasks - Register';
 $template = 'register.phtml';
 include 'layout.phtml';
+?>
