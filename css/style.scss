@@ -1,0 +1,98 @@
+/**********************************************************************/
+/*********************** GLOBAL VARIABLES *****************************/
+/**********************************************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F8F9FF;
+    color: #1A1A2E;
+}
+
+/**********************************************************************/
+/*********************** HEADER MOBILE FIRST **************************/
+/**********************************************************************/
+header {
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .burger-menu {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: block;
+    }
+    
+    nav {
+        display: none;
+        gap: 0.5rem;
+        flex-direction: column;
+        padding: 0 2rem;
+        
+        a {
+            text-decoration: none;
+            color: #7592fe;
+        }
+        
+        &.open {
+            display: flex; // when we click on the burger it activates the menu
+        }
+    }
+}
+
+
+
+/**********************************************************************/
+/*********************** FOOTER MOBILE FIRST **************************/
+/**********************************************************************/
+
+footer {
+    background-color: #0f0f12;
+    margin-top: 1rem;
+    padding: 1rem;
+    
+    p {
+        text-align: center;
+        color: white;
+    }
+}
+
+/*********************** MOD TABLET ***********************************/
+@media screen and (min-width:480px) and (max-width:768px) {
+
+}
+
+
+
+/*********************** MOD DESKTOP ***********************************/
+@media screen and (min-width:769px) {
+/*********************** HEADER MOD DESKTOP ***************************/
+
+    header {
+        .burger-menu {
+            display: none;
+        }
+        
+        nav {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+        }
+    }
+    
+    /*********************** FOOTER MOD DESKTOP ***************************/
+    
+    footer {
+        p {
+            text-align: left;
+        }
+    }
+}
