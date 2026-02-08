@@ -17,3 +17,6 @@ function connectToDataBase() {
         die($e -> getMessage());
     }
 }
+
+$pdo = connectToDataBase();
+session_start();
