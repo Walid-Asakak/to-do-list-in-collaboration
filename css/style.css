@@ -71,27 +71,80 @@ footer p {
 /**********************************************************************/
 /*********************** INDEX MOBILE & TABLET ************************/
 /**********************************************************************/
-.ind-content h1,
-.ind-content p {
-  margin: 2rem 5rem;
-  text-align: center;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.ind {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70vh;
+    gap: 3rem;
+}
+
+.ind-content {
+    flex: 1;
+}
+
+.ind h1 {
+    font-size: 3rem;
+    color: #1A1A2E;
+    margin-bottom: 1rem;
+}
+
+.ind p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
 }
 
 .ind-buttons {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-.ind-buttons a {
-  margin-right: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  background-color: #5d80ff;
-  color: white;
+    display: flex;
+    gap: 1rem;
 }
 
 .ind-image {
-  text-align: center;
+    flex: 1;
+    text-align: center;
+}
+
+.ind-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background: #6B7FF5;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5266e0;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #6B7FF5;
+    border: 2px solid #6B7FF5;
+}
+
+.btn-secondary:hover {
+    background: #6B7FF5;
+    color: white;
 }
 
 /**********************************************************************/
