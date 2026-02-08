@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-$layoutTitle = '3WA Tasks - Signup';
+$layoutTitle = '3WA Tasks - Register';
 $template = 'register.phtml';
 include 'layout.phtml';
 ?>
