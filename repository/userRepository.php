@@ -43,7 +43,9 @@ function getUserbyEmail(string $email): ?array {
         $query -> bindParam(':email', $email, PDO::PARAM_STR);
         $query -> execute();
         $user = $query -> fetch();
-        return $user;
+        
+        // Aidé de l'IA a la ligne juste en dessous pour gérer une erreur
+        return $user ?: null;
     }
     
     catch (Exception $e) {

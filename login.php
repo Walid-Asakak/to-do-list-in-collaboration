@@ -35,4 +35,3 @@ if (!empty($_POST)) {
 $layoutTitle = '3WA Tasks - Login';
 $template = 'login.phtml';
 include 'layout.phtml';
-
