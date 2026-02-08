@@ -65,7 +65,7 @@ footer p {
 /**********************************************************************/
 .ind-content h1,
 .ind-content p {
-  margin: 1rem 1.5rem;
+  margin: 2rem 5rem;
   text-align: center;
 }
 
@@ -84,6 +84,48 @@ footer p {
 
 .ind-image {
   text-align: center;
+}
+
+/**********************************************************************/
+/*********************** PAGE SIGNUP MOBILE FIRST **********************/
+/**********************************************************************/
+.role-signup {
+  text-align: center;
+}
+.role-signup h1 {
+  margin-top: 4rem;
+}
+
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 2rem;
+}
+.signup .container-signup {
+  width: 50%;
+  max-width: 500px;
+}
+.signup .container-signup form {
+  display: flex;
+  flex-direction: column;
+}
+.signup .container-signup form label {
+  margin-bottom: 0.75rem;
+}
+.signup .container-signup form input {
+  padding: 5px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+.signup .container-signup form button {
+  padding: 0.25rem;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+  border-radius: 5px;
+  width: 30%;
+  color: white;
+  background-color: #5d80ff;
 }
 
 /*********************** MOD TABLET ***********************************/

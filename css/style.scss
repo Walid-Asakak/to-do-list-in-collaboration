@@ -75,7 +75,7 @@ footer {
 .ind-content {
     h1,
     p {
-        margin: 1rem 1.5rem;
+        margin: 2rem 5rem;
         text-align: center;
     }
 }
@@ -97,6 +97,57 @@ footer {
 .ind-image {
     text-align: center;
 }
+
+/**********************************************************************/
+/*********************** PAGE SIGNUP MOBILE FIRST **********************/
+/**********************************************************************/
+
+.role-signup {
+    text-align: center;
+    
+    h1 {
+        margin-top: 4rem;
+    }
+}
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 2rem;
+    
+    .container-signup {
+        width: 50%;
+        max-width: 500px;
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            
+            label {
+                margin-bottom: 0.75rem;
+            }
+            
+            input {
+                padding: 5px;
+                margin-bottom: 1rem;
+                border-radius: 5px;
+            }
+            
+            button {
+                padding: 0.25rem;
+                margin-top: 1rem;
+                margin-bottom: 4rem;
+                border-radius: 5px;
+                width: 30%;
+                color: white;
+                background-color: #5d80ff;
+            }
+        }
+    }
+}
+
+
 
 /*********************** MOD TABLET ***********************************/
 @media screen and (min-width:480px) and (max-width:768px) {
