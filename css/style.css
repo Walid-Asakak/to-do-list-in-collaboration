@@ -47,6 +47,14 @@ header nav.open {
   display: flex;
 }
 
+header .logo {
+    color: #6B7FF5;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0 2rem;
+}
+
 /**********************************************************************/
 /*********************** FOOTER MOBILE FIRST **************************/
 /**********************************************************************/
