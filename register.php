@@ -41,7 +41,7 @@ if (!empty($_POST)) {
             $_SESSION['username'] = $username;
 
             // Redirect to login page
-            header('Location: login.php');
+            header('Location: userAccount.php');
             exit();
         } 
         else {
