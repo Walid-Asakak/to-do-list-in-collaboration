@@ -1,25 +1,38 @@
 <?php
-require_once 'repository/connection.php';
+
+session_start();
+
+include('repository/userRepository.php');
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
-    $stmt->execute([$username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+// If the user is already connected -> go on user page 
+if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true) {
+    header("Location: userAccount.php");
+    exit();
+}
+
+
+if (!empty($_POST)) {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
     
+    $user = getUserByEmail($email);
+    
+    // Check if user password is correct & if user  exists (adress email)
     if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        header('Location: user.php');
-        exit;
-    } else {
-        $error = "Nom d'utilisateur ou mot de passe incorrect";
+        $_SESSION['loggedIn'] = true;
+        $_SESSION['user'] = $user;
+        header("Location: userAccount.php");
+        exit();
+    } 
+    
+    else {
+            $error = 'Email or password is incorrect.';
     }
 }
+
 $layoutTitle = '3WA Tasks - Login';
 $template = 'login.phtml';
 include 'layout.phtml';
-?>
+

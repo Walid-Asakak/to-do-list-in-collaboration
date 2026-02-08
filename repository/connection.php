@@ -19,4 +19,3 @@ function connectToDataBase() {
 }
 
 $pdo = connectToDataBase();
-session_start();
